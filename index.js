@@ -1,38 +1,12 @@
 const nomePetShop = 'Petoria';
+var fs = require('fs');
 
-let pets = [{
-        nome : 'Pituco',
-        tipo : 'cachorro',
-        idade: 7,
-        raca: 'yorkshire',
-        peso: 10,
-        tutor: 'Maria Luciene',
-        contato: '(81) 99859-1395',
-        vacinado: true,
-        servicos: ['banho', 'tosa']
-},
+const bancoDados = require('./bancoDados.json');
+let pets = bancoDados.teste;
 
-{nome : 'Lady',
-        tipo : 'cachorro',
-        idade: 5,
-        raca: 'poodle',
-        peso: 4,
-        tutor: 'Luana',
-        contato: '(81) 95659-1395',
-        vacinado: false,
-        servicos: ['banho', 'tosa']
-},
-{nome : 'Liliane',
-        tipo : 'gato',
-        idade: 7,
-        raca: 'Vira-lata',
-        peso: 5,
-        tutor: 'Mariana',
-        contato: '(81) 99459-1455',
-        vacinado: false,
-        servicos: ['tosa', 'vacina']
-}];
+console.log(pets);
 
+//criando um novo cliente
 let cliente = {
     nome : 'Toto',
     tipo : 'rato',
@@ -45,21 +19,19 @@ let cliente = {
     servicos: []
 };
 
+
 //Criando uma função para imprimir a lista
 const listarPets = () => {
     for(let i = 0; i < pets.length; i++ ){
        // console.log(pets[i].nome);
        // console.log(`O nome do pet eh ${pets[i].nome}`);
     }
-
     for(let pet of pets){
         console.log(pet.nome, pet.raca, pet.vacinado, pet.peso);
     }
 }
 
-const vacinarPet = (pet) => {
-    
-
+const vacinarPet = (pet) => {  
         if(pet.vacinado == true){ 
             console.log(`O pet ${pet.nome} já está vacinado`);
         }
@@ -70,7 +42,7 @@ const vacinarPet = (pet) => {
     }
 
 //escolhendo o pet2 para ser vacinado   
-vacinarPet(pets[2]);
+//vacinarPet(pets[2]);
 
 const verData = () => {
 
@@ -96,7 +68,7 @@ const campanhaVacina = () => {
     }
     console.log(`${cont} pets foram vaciados nessa campanha!`)
 }
-campanhaVacina();
+//campanhaVacina();
 
 
 const adcionarNovoCliente = (cliente) => {
@@ -116,7 +88,7 @@ const darBanhoPet = (pet) => {
     
 }
 //Chamando a função dar banho com o novo cliente
-darBanhoPet(pets[3]);
+//darBanhoPet(pets[3]);
 
 const tosarPet = (pet) => {
     pet.servicos.push('tosar');
@@ -125,11 +97,15 @@ const tosarPet = (pet) => {
 
     
 }
-tosarPet(pets[3]);
+//tosarPet(pets[3]);
 
 const apararPet = (pet) => {
     pet.servicos.push('aparar unhas');
     console.log(`O ${pet.nome} está de unhas aparadas!`)  
     verData(); 
 }
-apararPet(pets[3]);
+//apararPet(pets[3]);
+
+//console.log(pets);
+dadosJson = JSON.stringify(pets); // transformando o banco de dados para Json
+console.log(dadosJson);
