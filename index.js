@@ -83,7 +83,7 @@ const campanhaVacina = () => {
 
 const adcionarNovoCliente = (cliente) => {
     bancoDados.pets.push(cliente);
-    console.log(bancoDados.pets);
+    //console.log(bancoDados.pets);
     atualizarBanco();
     console.log(`${cliente.nome} foi adicionado com sucesso!`);
 
