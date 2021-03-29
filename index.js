@@ -89,14 +89,15 @@ const adcionarNovoCliente = (cliente) => {
 
 }
 
-//
-adcionarNovoCliente(cliente);
+
+//adcionarNovoCliente(cliente);
 
 //printar a lista de pets atualizada
 //console.log(pets);
 
 const darBanhoPet = (pet) => {
     pet.servicos.push('banho');
+    atualizarBanco();
     console.log(`O ${pet.nome} está de banho tomado!`)
     verData();
     
@@ -106,6 +107,7 @@ const darBanhoPet = (pet) => {
 
 const tosarPet = (pet) => {
     pet.servicos.push('tosar');
+    atualizarBanco();
     console.log(`O ${pet.nome} está com cabelinho na régua!`)
     verData();
 
@@ -115,10 +117,16 @@ const tosarPet = (pet) => {
 
 const apararPet = (pet) => {
     pet.servicos.push('aparar unhas');
+    atualizarBanco();
     console.log(`O ${pet.nome} está de unhas aparadas!`)  
     verData(); 
 }
 //apararPet(pets[3]);
 
+const atendeCliente = (pet, servico) =>{
+    servico(pet);
+    console.log(`${pet.nome} realizou o serviço com sucesso!`);
 
+}
 
+atendeCliente (bancoDados.pets[4], tosarPet);
