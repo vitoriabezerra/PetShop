@@ -42,17 +42,17 @@ const listarPets = () => {
 }
 
 const vacinarPet = (pet) => {  
-        if(pet.vacinado == true){ 
-            console.log(`O pet ${pet.nome} já está vacinado`);
-        }
-        else{
-            pet.vacinado = true;
-            console.log(`O pet ${pet.nome} foi vacinado`);
-        }
+
+    pet.vacinado? (
+        console.log(`O pet ${pet.nome} já está vacinado`)
+    ) : (
+        pet.vacinado = true,
+        console.log(`O pet ${pet.nome} foi vacinado`)
+    );
     }
 
 //escolhendo o pet2 para ser vacinado   
-//vacinarPet(pets[2]);
+vacinarPet(bancoDados.pets[2]);
 
 const verData = () => {
 
@@ -89,6 +89,7 @@ const adcionarNovoCliente = (cliente) => {
 
 }
 
+//
 adcionarNovoCliente(cliente);
 
 //printar a lista de pets atualizada
