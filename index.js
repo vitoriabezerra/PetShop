@@ -1,10 +1,11 @@
 const nomePetShop = 'Petoria';
-var fs = require('fs');
+const fs = require('fs'); //chamando o modulo nativo filesystem
 
-const bancoDados = require('./bancoDados.json');
-let pets = bancoDados.teste;
+let bancoDados = fs.readFileSync('./bancoDados.json');
+bancoDados = JSON.parse(bancoDados);
 
-console.log(pets);
+
+//console.log(bancoDados);
 
 //criando um novo cliente
 let cliente = {
@@ -19,14 +20,23 @@ let cliente = {
     servicos: []
 };
 
+const atualizarBanco = () => {
+    //conversão de objeto javascript para JSON
+    let petsAtualizado = JSON.stringify(bancoDados);
+    //atualização do arquivo bancoDados.json
+    fs.writeFileSync('bancoDados.json', petsAtualizado, 'utf-8');
+    
+
+}
+
 
 //Criando uma função para imprimir a lista
 const listarPets = () => {
-    for(let i = 0; i < pets.length; i++ ){
+    for(let i = 0; i < bancoDados.pets.length; i++ ){
        // console.log(pets[i].nome);
        // console.log(`O nome do pet eh ${pets[i].nome}`);
     }
-    for(let pet of pets){
+    for(let pet of bancoDados.pets){
         console.log(pet.nome, pet.raca, pet.vacinado, pet.peso);
     }
 }
@@ -55,7 +65,7 @@ const verData = () => {
 const campanhaVacina = () => {
     let cont =0;
 
-    for(let pet of pets){
+    for(let pet of bancoDados.pets){
 
         if(pet.vacinado == true){ 
             console.log(`O pet ${pet.nome} já está vacinado`);
@@ -72,7 +82,10 @@ const campanhaVacina = () => {
 
 
 const adcionarNovoCliente = (cliente) => {
-     pets.push(cliente);
+    bancoDados.pets.push(cliente);
+    console.log(bancoDados.pets);
+    atualizarBanco();
+    console.log(`${cliente.nome} foi adicionado com sucesso!`);
 
 }
 
@@ -106,6 +119,5 @@ const apararPet = (pet) => {
 }
 //apararPet(pets[3]);
 
-//console.log(pets);
-dadosJson = JSON.stringify(pets); // transformando o banco de dados para Json
-console.log(dadosJson);
+
+
