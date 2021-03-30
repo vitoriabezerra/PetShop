@@ -27,12 +27,12 @@ const atualizarBanco = () => {
 }
 
 const listarPets = () => {
+
    
     bancoDados.pets.forEach( (pet) =>  {
-
+        let {nome, idade, tipo, raca, vacinado} = pet;
         
-        console.log(`Nome: ${pet.nome}, Idade: ${pet.idade} anos, Espécie: ${pet.especie}, Raça: ${pet.raca}, ${(pet.vacinado) ? 'Vacinado': 'Não vacinado'}`);
-        
+        console.log(`Nome: ${nome}, Idade: ${idade} anos, Raça: ${raca}, ${(vacinado) ? 'Vacinado': 'Não vacinado'}`);   
     });
 }
 
@@ -127,9 +127,6 @@ const clientePremium = (pet) =>{
         console.log(`Olá, ${pet.nome}! Você ainda não tem descontos disponiveis!`);
     }
 }
-
-
-
 
 listarPets();
 //vacinarPet(bancoDados.pets[2]);
