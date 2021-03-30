@@ -61,7 +61,7 @@ const campanhaVacina = () => {
     bancoDados.pets.map(pet => {
         let {vacinado} = pet;
         if (!vacinado) {
-            vacinado = true;
+            pet.vacinado = true;
             cont++;
 
         }
@@ -132,6 +132,25 @@ const clientePremium = (pet) =>{
     }
 }
 
+const contatoTutor = (pet) => {
+    let {nome, tutor, contato} = pet;
+    
+    return `Tutor: ${tutor}
+    Contato: ${contato}
+    Pet: ${nome}`;
+}
+
+const filtrarTutor = (nomeTutor) => {
+    let petsTutor = bancoDados.pets.filter((pet) => {
+        return pet.tutor == nomeTutor;
+    });
+    
+    console.log(`Pets do tutor ${nomeTutor}:`)
+    petsTutor.forEach((pet) => {
+        console.log(`${pet.nome} - ${pet.tipo}`)
+    })
+}
+
 //listarPets();
 //vacinarPet(bancoDados.pets[2]);
 //campanhaVacina();
@@ -143,3 +162,5 @@ const clientePremium = (pet) =>{
 //buscarPet('Toto');
 //fitrarTipoPet('cachorro');
 //clientePremium(bancoDados.pets[1]);
+//console.log(contatoTutor(bancoDados.pets[0]));
+//filtrarTutor('Maria Luciene');
