@@ -4,9 +4,6 @@ const fs = require('fs'); //chamando o modulo nativo filesystem
 let bancoDados = fs.readFileSync('./bancoDados.json');
 bancoDados = JSON.parse(bancoDados);
 
-
-//console.log(bancoDados);
-
 //criando um novo cliente
 let cliente = {
     nome : 'Toto',
@@ -22,23 +19,21 @@ let cliente = {
 
 const atualizarBanco = () => {
     //conversão de objeto javascript para JSON
-    let petsAtualizado = JSON.stringify(bancoDados);
+    let petsAtualizado = JSON.stringify(bancoDados, null, 2);
     //atualização do arquivo bancoDados.json
     fs.writeFileSync('bancoDados.json', petsAtualizado, 'utf-8');
     
 
 }
 
-
-//Criando uma função para imprimir a lista
 const listarPets = () => {
-    for(let i = 0; i < bancoDados.pets.length; i++ ){
-       // console.log(pets[i].nome);
-       // console.log(`O nome do pet eh ${pets[i].nome}`);
-    }
-    for(let pet of bancoDados.pets){
-        console.log(pet.nome, pet.raca, pet.vacinado, pet.peso);
-    }
+   
+    bancoDados.pets.forEach( (pet) =>  {
+
+        
+        console.log(`Nome: ${pet.nome}, Idade: ${pet.idade} anos, Espécie: ${pet.especie}, Raça: ${pet.raca}, ${(pet.vacinado) ? 'Vacinado': 'Não vacinado'}`);
+        
+    });
 }
 
 const vacinarPet = (pet) => {  
@@ -51,9 +46,6 @@ const vacinarPet = (pet) => {
     );
     }
 
-//escolhendo o pet2 para ser vacinado   
-vacinarPet(bancoDados.pets[2]);
-
 const verData = () => {
 
     let current_datetime = new Date()
@@ -65,21 +57,18 @@ const verData = () => {
 const campanhaVacina = () => {
     let cont =0;
 
-    for(let pet of bancoDados.pets){
 
-        if(pet.vacinado == true){ 
-            console.log(`O pet ${pet.nome} já está vacinado`);
-        }
-        else{
+    bancoDados.pets.map(pet => {
+        if (pet.vacinado == false) {
             pet.vacinado = true;
             cont++;
-            console.log(`O pet ${pet.nome} irá ser vacinado`);
-        }       
-    }
+        }
+        
+    })
     console.log(`${cont} pets foram vaciados nessa campanha!`)
-}
-//campanhaVacina();
+    atualizarBanco();
 
+}
 
 const adcionarNovoCliente = (cliente) => {
     bancoDados.pets.push(cliente);
@@ -89,12 +78,6 @@ const adcionarNovoCliente = (cliente) => {
 
 }
 
-
-//adcionarNovoCliente(cliente);
-
-//printar a lista de pets atualizada
-//console.log(pets);
-
 const darBanhoPet = (pet) => {
     pet.servicos.push('banho');
     atualizarBanco();
@@ -102,8 +85,6 @@ const darBanhoPet = (pet) => {
     verData();
     
 }
-//Chamando a função dar banho com o novo cliente
-//darBanhoPet(pets[3]);
 
 const tosarPet = (pet) => {
     pet.servicos.push('tosar');
@@ -113,7 +94,6 @@ const tosarPet = (pet) => {
 
     
 }
-//tosarPet(pets[3]);
 
 const apararPet = (pet) => {
     pet.servicos.push('aparar unhas');
@@ -121,12 +101,44 @@ const apararPet = (pet) => {
     console.log(`O ${pet.nome} está de unhas aparadas!`)  
     verData(); 
 }
-//apararPet(pets[3]);
 
-const atendeCliente = (pet, servico) =>{
+const atenderCliente = (pet, servico) =>{
     servico(pet);
-    console.log(`${pet.nome} realizou o serviço com sucesso!`);
+    console.log(`${pet.nome} realizou o serviço com sucesso! Obrigado e volte sempre`);
 
 }
 
-atendeCliente (bancoDados.pets[4], tosarPet);
+const buscarPet = (nome) => {
+    const busca = bancoDados.pets.find(petAtual => petAtual.nome == nome);
+    console.log(busca);
+}
+
+const fitrarTipoPet = (tipo) => {
+    const busca = bancoDados.pets.filter(petAtual => petAtual.tipo == tipo);
+    console.log(busca);
+}
+
+const clientePremium = (pet) =>{
+    let quantidade = pet.servicos.length;
+    
+    if (quantidade > 5) {
+        console.log(`Olá, ${pet.nome}! Você é um cliente especial e ganhou um descontão!`);
+    } else {
+        console.log(`Olá, ${pet.nome}! Você ainda não tem descontos disponiveis!`);
+    }
+}
+
+
+
+
+listarPets();
+//vacinarPet(bancoDados.pets[2]);
+//campanhaVacina();
+//adcionarNovoCliente(cliente);
+//darBanhoPet(pets[3]);
+//tosarPet(pets[3]);
+//apararPet(pets[3]);
+//atenderCliente (bancoDados.pets[4], tosarPet);
+//buscarPet('Toto');
+//fitrarTipoPet('cachorro');
+//clientePremium(bancoDados.pets[1]);
