@@ -30,7 +30,7 @@
       "peso": "10",
       "tutor": "Maria Luciene",
       "contato": "(81) 99859-1315",
-      "vacinado": true,
+      "vacinado": false,
       "servicos": "[]"
     },
     {
@@ -42,7 +42,9 @@
       "tutor": "Leandro",
       "contato": "(81) 99859-1395",
       "vacinado": true,
-      "servicos": []
+      "servicos": [
+        "banho"
+      ]
     }
   ]
 }

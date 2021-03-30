@@ -30,19 +30,20 @@ const listarPets = () => {
 
    
     bancoDados.pets.forEach( (pet) =>  {
-        let {nome, idade, tipo, raca, vacinado} = pet;
+        let {nome, idade, tipo, raca, vacinado, contato, tutor} = pet;
         
-        console.log(`Nome: ${nome}, Idade: ${idade} anos, Raça: ${raca}, ${(vacinado) ? 'Vacinado': 'Não vacinado'}`);   
+        console.log(`Nome: ${nome}, Tipo: ${tipo}, Idade: ${idade} anos, Raça: ${raca}, ${(vacinado) ? 'Vacinado': 'Não vacinado'}, Tutor: ${tutor}, Contato: ${contato}`);   
     });
 }
 
 const vacinarPet = (pet) => {  
+    let {nome, vacinado} = pet
 
-    pet.vacinado? (
-        console.log(`O pet ${pet.nome} já está vacinado`)
+    vacinado? (
+        console.log(`O pet ${nome} já está vacinado.`)
     ) : (
-        pet.vacinado = true,
-        console.log(`O pet ${pet.nome} foi vacinado`)
+        vacinado = true,
+        console.log(`O pet ${nome} acabou de ser vacinado.`)
     );
     }
 
@@ -56,12 +57,13 @@ const verData = () => {
 
 const campanhaVacina = () => {
     let cont =0;
-
-
+    
     bancoDados.pets.map(pet => {
-        if (pet.vacinado == false) {
-            pet.vacinado = true;
+        let {vacinado} = pet;
+        if (!vacinado) {
+            vacinado = true;
             cont++;
+
         }
         
     })
@@ -71,34 +73,36 @@ const campanhaVacina = () => {
 }
 
 const adcionarNovoCliente = (cliente) => {
+
     bancoDados.pets.push(cliente);
-    //console.log(bancoDados.pets);
+    let {nome} = cliente;
     atualizarBanco();
-    console.log(`${cliente.nome} foi adicionado com sucesso!`);
+    console.log(`${nome} foi adicionado com sucesso!`);
 
 }
 
 const darBanhoPet = (pet) => {
-    pet.servicos.push('banho');
+    let {servicos, nome} = pet;
+    servicos.push('banho');
     atualizarBanco();
-    console.log(`O ${pet.nome} está de banho tomado!`)
+    console.log(`O ${nome} está de banho tomado!`)
     verData();
     
 }
 
 const tosarPet = (pet) => {
-    pet.servicos.push('tosar');
+    let {servicos, nome} = pet;
+    servicos.push('tosar');
     atualizarBanco();
-    console.log(`O ${pet.nome} está com cabelinho na régua!`)
-    verData();
-
-    
+    console.log(`O ${nome} está com cabelinho na régua!`)
+    verData();   
 }
 
 const apararPet = (pet) => {
-    pet.servicos.push('aparar unhas');
+    let {servicos, nome} = pet;
+    servicos.push('aparar unhas');
     atualizarBanco();
-    console.log(`O ${pet.nome} está de unhas aparadas!`)  
+    console.log(`O ${nome} está de unhas aparadas!`)  
     verData(); 
 }
 
@@ -128,13 +132,13 @@ const clientePremium = (pet) =>{
     }
 }
 
-listarPets();
+//listarPets();
 //vacinarPet(bancoDados.pets[2]);
 //campanhaVacina();
 //adcionarNovoCliente(cliente);
-//darBanhoPet(pets[3]);
-//tosarPet(pets[3]);
-//apararPet(pets[3]);
+//darBanhoPet(bancoDados.pets[3]);
+//tosarPet(bancoDados.pets[3]);
+//apararPet(bancoDados.pets[3]);
 //atenderCliente (bancoDados.pets[4], tosarPet);
 //buscarPet('Toto');
 //fitrarTipoPet('cachorro');
