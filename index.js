@@ -4,19 +4,6 @@ const fs = require('fs'); //chamando o modulo nativo filesystem
 let bancoDados = fs.readFileSync('./bancoDados.json');
 bancoDados = JSON.parse(bancoDados);
 
-//criando um novo cliente
-let cliente = {
-    nome : 'Toto',
-    tipo : 'rato',
-    idade: 7,
-    raca: 'Twister',
-    peso: 0.3,
-    tutor: 'Leandro',
-    contato: '(81) 99859-1395',
-    vacinado: true,
-    servicos: []
-};
-
 const atualizarBanco = () => {
     //conversão de objeto javascript para JSON
     let petsAtualizado = JSON.stringify(bancoDados, null, 2);
@@ -72,14 +59,25 @@ const campanhaVacina = () => {
 
 }
 
-const adcionarNovoCliente = (cliente) => {
+const adicionarNovoCliente = (...novosClientes) => {
+    novosClientes.forEach((novos) => {
+        bancoDados.pets.push(novos);
+    })
+
+    atualizarBanco();
+    novosClientes.forEach((pet) => {
+        console.log(`${pet.nome} foi adicionado com sucesso!`);
+    })
+}
+
+/* const adcionarNovoCliente = (cliente) => {
 
     bancoDados.pets.push(cliente);
     let {nome} = cliente;
     atualizarBanco();
     console.log(`${nome} foi adicionado com sucesso!`);
 
-}
+} */
 
 const darBanhoPet = (pet) => {
     let {servicos, nome} = pet;
@@ -107,7 +105,7 @@ const apararPet = (pet) => {
 }
 
 const atenderCliente = (pet, servico) =>{
-    servico(pet);
+    servico(pet); //serviço é uma função.
     console.log(`${pet.nome} realizou o serviço com sucesso! Obrigado e volte sempre`);
 
 }
@@ -151,10 +149,33 @@ const filtrarTutor = (nomeTutor) => {
     })
 }
 
+let cliente = {
+    nome : 'Lana',
+    tipo : 'rato',
+    idade: 7,
+    raca: 'Twister',
+    peso: 0.3,
+    tutor: 'Leandro',
+    contato: '(81) 99859-1395',
+    vacinado: true,
+    servicos: []
+};
+let cliente2= {
+    nome : 'Toby',
+    tipo : 'rato',
+    idade: 7,
+    raca: 'Twister',
+    peso: 0.3,
+    tutor: 'Leandro',
+    contato: '(81) 99859-1395',
+    vacinado: true,
+    servicos: []
+};
+
 //listarPets();
 //vacinarPet(bancoDados.pets[2]);
 //campanhaVacina();
-//adcionarNovoCliente(cliente);
+//adicionarNovoCliente(cliente, cliente2);
 //darBanhoPet(bancoDados.pets[3]);
 //tosarPet(bancoDados.pets[3]);
 //apararPet(bancoDados.pets[3]);
@@ -164,3 +185,4 @@ const filtrarTutor = (nomeTutor) => {
 //clientePremium(bancoDados.pets[1]);
 //console.log(contatoTutor(bancoDados.pets[0]));
 //filtrarTutor('Maria Luciene');
+
